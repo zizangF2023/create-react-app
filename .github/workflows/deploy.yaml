@@ -1,0 +1,22 @@
+name: Render Deploy
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]      # Every push and pull request to the master branch will trigger this GitHub Action
+
+jobs:
+
+  # test:     # First job is to run CI tests
+  #   ...
+
+  deploy:
+    # needs: [test]             # All CI tests must pass in order to run the deployment task
+    runs-on: ubuntu-latest      # OS enviroment
+    steps:
+      - name: Deploy to Render
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}     # Can be found as part of the Deploy Hook on Render
+          api-key: ${{ secrets.MY_RENDER_API_KEY }}           # Create your API key in Render Account Settings
